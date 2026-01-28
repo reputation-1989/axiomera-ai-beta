@@ -4,6 +4,8 @@ from typing import List, Optional, Literal
 class CouncilRequest(BaseModel):
     prompt: str
     mode: Literal["council", "single"] = "council"
+    model: Optional[str] = "gpt4"
+    domain: Optional[str] = "general"
 
 class ModelThought(BaseModel):
     name: str
