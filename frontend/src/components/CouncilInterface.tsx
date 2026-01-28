@@ -24,7 +24,7 @@ export default function CouncilInterface() {
     setSteps([]);
 
     try {
-      const response = await fetch('http://localhost:8000/api/v1/council/solve', {
+      const response = await fetch('/api/v1/council/solve', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prompt }),
