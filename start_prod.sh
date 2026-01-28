@@ -5,32 +5,24 @@ kill $(lsof -t -i:8000) 2>/dev/null || true
 kill $(lsof -t -i:3000) 2>/dev/null || true
 sleep 2
 
-echo "🚀 Setting up AxiomeraAI..."
-
-# Install Backend
-if [ ! -d "backend/venv" ]; then
-    echo "Installing Backend Dependencies..."
-    (cd backend && pip install -r requirements.txt > /dev/null 2>&1)
-fi
-
-# Install Frontend
-if [ ! -d "frontend/node_modules" ]; then
-    echo "Installing Frontend Dependencies..."
-    (cd frontend && npm install > /dev/null 2>&1)
-fi
-
-echo "✅ Setup Complete. Starting Servers..."
+echo "🚀 Starting AxiomeraAI (Production Mode)..."
 
 # Start Backend
 echo "Starting Backend on port 8000..."
-(cd backend && python -m uvicorn main:app --reload --port 8000 > /dev/null 2>&1) &
+(cd backend && python -m uvicorn main:app --port 8000 > /dev/null 2>&1) &
 BACKEND_PID=$!
 
-sleep 3
+sleep 2
 
 # Start Frontend
 echo "Starting Frontend on port 3000..."
-(cd frontend && npm run dev -- -p 3000 -H 0.0.0.0 > /dev/null 2>&1) &
+# Ensure build exists
+if [ ! -d "frontend/.next" ]; then
+    echo "Building Frontend..."
+    (cd frontend && npm run build)
+fi
+
+(cd frontend && npm start -- -p 3000 -H 0.0.0.0 > /dev/null 2>&1) &
 FRONTEND_PID=$!
 
 echo "---------------------------------------------------"
