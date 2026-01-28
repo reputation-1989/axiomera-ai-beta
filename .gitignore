@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.env
+venv/
+.venv/
+env/
+.pytest_cache/
+
+# Node
+node_modules/
+dist/
+.next/
+out/
+coverage/
+
+# Misc
+.DS_Store
+*.log
+verification/
