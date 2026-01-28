@@ -1,6 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Allow the Codespace proxy domain to access the server
+  experimental: {
+    serverActions: {
+      allowedOrigins: ["*"],
+    },
+  },
+  // Sometimes required for dev proxies
+  output: "standalone",
   async rewrites() {
     return [
       {

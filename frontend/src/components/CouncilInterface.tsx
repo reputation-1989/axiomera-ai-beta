@@ -37,7 +37,7 @@ export default function CouncilInterface() {
       const response = await fetch('/api/v1/council/solve', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt, mode }),
+        body: JSON.stringify({ prompt, mode, model, domain }),
       });
 
       if (!response.body) throw new Error("No response body");
